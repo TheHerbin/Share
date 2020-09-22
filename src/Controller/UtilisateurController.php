@@ -47,5 +47,20 @@ class UtilisateurController extends AbstractController
 
 
 
+    /**
+     * @Route("/liste_utilisateurs", name="liste_utilisateurs")
+     */
+    public function listeUtilisateurs(Request $request)
+    {
+      $em = $this->getDoctrine();
+      $repoUtilisateur = $em-> getRepository(Utilisateur::class);
+      $utilisateurs = $repoUtilisateur->findBy(array(),array('nom'=>'ASC'));
+    return $this->render('liste_utilisateurs/liste_utilisateurs.html.twig', [
+    'utilisateurs'=>$utilisateurs
+  ]);
+}
+
+
+
 
 }
