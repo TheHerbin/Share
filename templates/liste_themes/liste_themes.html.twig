@@ -19,13 +19,21 @@
 						<thead>
 							<tr class="table-info">
 								<th scope="row">Libelle :</th>
+								<th></th>
+								<th></th>
+								<th></th>
 							</tr>
 						</thead>
 						<tbody>
 
 							{% for theme in themes %}
 								<tr class={{cycle(['table-active', 'table-primary'],loop.index0) }}>
-									<td>{{theme.libelle}}</td>
+									 <td>{{theme.libelle |capitalize }}</td>
+									 <td><a href="{{path('modif_theme',{'id':theme.id})}}">
+									 <span title="Modifier le thème" class="material-icons">brush </span>
+									 </td>
+									 <td></td>
+									 <td><a href="{{path('liste_themes',{'supp':theme.id})}}"><span  title="Supprimer le thème" class="material-icons">cancel </span></td>
 								</tr>
 							{% endfor %}
 						</tbody>

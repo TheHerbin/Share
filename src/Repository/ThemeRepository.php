@@ -25,7 +25,7 @@ class ThemeRepository extends ServiceEntityRepository
     /*
     public function findByExampleField($value)
     {
-        return $this->createQueryBuilder('t')
+        return $this->createQueryBuilderhttp://serveur1.arras-sio.com/symfony4-4162/shell_shop/public/index.php?page=accueil('t')
             ->andWhere('t.exampleField = :val')
             ->setParameter('val', $value)
             ->orderBy('t.id', 'ASC')
@@ -37,7 +37,7 @@ class ThemeRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Theme
+    public function findOneBySomeFielduse App\Controller\ModifThemeType;($value): ?Theme
     {
         return $this->createQueryBuilder('t')
             ->andWhere('t.exampleField = :val')
@@ -45,6 +45,7 @@ class ThemeRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult()
         ;
-    }
+    }http://serveur1.arras-sio.com/symfony4-4162/shell_shop/public/index.php?page=accueil
     */
 }
+http://serveur1.arras-sio.com/symfony4use App\Controller\ModifThemeType;-4162/shell_shop/public/index.php?page=accueil
