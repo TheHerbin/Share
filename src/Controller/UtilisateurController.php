@@ -20,7 +20,7 @@ class UtilisateurController extends AbstractController
     /**
      * @Route("/ajouter_utilisateur", name="ajouter_utilisateur")
      */
-    public function ajoutTheme(Request $request)
+    public function ajoutUtilisateur(Request $request)
     {
         $utilisateur = new Utilisateur();
        
