@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\File\File;
 
 
 
+
 class FichierController extends AbstractController
 {
     /**
@@ -67,14 +68,23 @@ class FichierController extends AbstractController
       /**
      * @Route("/liste_fichiers", name="liste_fichiers")
      */
-    public function listeFichiers()
+    public function listeFichiers(Request $request)
     {
       $em = $this->getDoctrine();
       $repoFichier = $em-> getRepository(Fichier::class);
       $fichiers = $repoFichier->findBy(array(),array('vNom'=>'ASC'));
-    return $this->render('liste_fichiers/liste_fichiers.html.twig', [
-    'fichiers'=>$fichiers
+      if ($request->get('supp')!=null){
+        $fichier = $repoFichier->find($request->get('supp'));
+        if($fichier!=null){
+            $em->getManager()->remove($fichier);
+            $em->getManager()->flush();
+        }
+        return $this->redirectToRoute('liste_fichiers');
+      }
+    return $this->render('liste_fichiers/liste_fichiers.html.twig', ['fichiers'=>$fichiers
+
   ]);
+  
 }
 
 

@@ -14,17 +14,32 @@
 <table class="table table-hover">
   <thead>
     <tr>
-      <th scope="col" class="font-weight-bold">Nom</th> <th>Taille</th><th>Extension</th><th>Propriétaire</th>
+      <th scope="col" class="font-weight-bold">Nom</th> <th>Taille</th><th>Extension</th><th>Propriétaire</th><th></th>
     </tr>
   </thead>
   <tbody>
     {% for fichier in fichiers %}
     <tr class="{{ cycle(['table-primary', 'table-secondary'], loop.index0) }}">
      <td><a href="{{path('telechargement_fichier',{'id':fichier.id})}}">{{fichier.vNom}}</a></td>
-     <td>{{fichier.taille}}</td>
+     {% set v = fichier.taille %}
+     {% set symb = "Octets" %}
+     {% if v > 1000 %}
+    {% set v = v / 1000 %}
+    {% set symb = "Ko" %}
+     {% if v > 1000 %}
+    {% set v = v / 1000 %}
+    {% set symb = "Mo" %}
+     {% if v > 1000 %}
+    {% set v = v / 1000 %}
+    {% set symb = "Go" %}
+     {% endif %}
+     {% endif %}
+     {% endif %}
+     <td>{{v}} {{symb}}</td>
      <td>{{fichier.extension}}</td>
      <td>{{fichier.utilisateur.prenom}}
      {{fichier.utilisateur.nom}}</td>
+     <td><a href="{{path('liste_fichiers',{'supp':fichier.id})}}"><span  title="Supprimer le fichier" class="material-icons">cancel</span></td>
     </tr>
                
     {% endfor %}
