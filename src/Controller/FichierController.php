@@ -8,6 +8,9 @@ use App\Form\AjoutFichierType;
 use App\Entity\Fichier;
 use Symfony\Component\HttpFoundation\Request;
 use App\Repository\FichierRepository;
+use Symfony\Component\HttpFoundation\File\File;
+
+
 
 class FichierController extends AbstractController
 {
@@ -83,12 +86,16 @@ class FichierController extends AbstractController
     {
       $em = $this->getDoctrine();
       $repoFichier = $em->getRepository(Fichier::class);  
+      
       $fichier = $repoFichier->find($id);
+      $file = $fichier->getNom();
       if ($fichier == null){
         $this->redirectToRoute('liste_fichiers');
       }
       else{
-        return $this->file($this->getParameter('file_directory').'/'.$fichier->getNom());  
+        $fuchier = new File($this->getParameter('file_directory').'/'.$fichier->getNom());
+        
+        return $this->file($fuchier, $fichier->getvNom());  
       
       }
     }

@@ -48,4 +48,3 @@ class ThemeRepository extends ServiceEntityRepository
     }http://serveur1.arras-sio.com/symfony4-4162/shell_shop/public/index.php?page=accueil
     */
 }
-http://serveur1.arras-sio.com/symfony4use App\Controller\ModifThemeType;-4162/shell_shop/public/index.php?page=accueil
