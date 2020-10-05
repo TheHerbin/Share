@@ -55,6 +55,12 @@ class Fichier
      */
     private $date;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $vNom;
+
+
     public function __construct()
     {
         $this->themes = new ArrayCollection();
@@ -182,4 +188,17 @@ class Fichier
 
         return $this;
     }
+
+    public function getVNom(): ?string
+    {
+        return $this->vNom;
+    }
+
+    public function setVNom(string $vNom): self
+    {
+        $this->vNom = $vNom;
+
+        return $this;
+    }
+  
 }

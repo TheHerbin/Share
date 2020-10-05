@@ -22,14 +22,17 @@ class FichierController extends AbstractController
         if ($request->isMethod('POST')) {            
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
-                $em = $this->getDoctrine()->getManager();
                 $file = $fichier->getNom();
+                $em = $this->getDoctrine()->getManager();
+                $fichier->setVNom($file->getClientOriginalName());
                 $fichier->setDate(new \DateTime()); //récupère la date du jour
                 $fichier->setExtension($file->guessExtension()); // Récupère l’extension du fichier
                 $fichier->setTaille($file->getSize()); // getSize contient la taille du fichier envoyé
+                $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
+                $fichier->setNom($fileName);
                 $em->persist($fichier);
                 $em->flush();    
-                $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
+               
                 try{    
                     $file->move($this->getParameter('file_directory'),$fileName); // Nous déplaçons lefichier dans le répertoire configuré dans services.yaml
                     $this->addFlash('notice', 'Fichier inséré');
@@ -53,4 +56,41 @@ class FichierController extends AbstractController
     {        
         return md5(uniqid());    
     }
+
+
+
+
+
+      /**
+     * @Route("/liste_fichiers", name="liste_fichiers")
+     */
+    public function listeFichiers()
+    {
+      $em = $this->getDoctrine();
+      $repoFichier = $em-> getRepository(Fichier::class);
+      $fichiers = $repoFichier->findBy(array(),array('vNom'=>'ASC'));
+    return $this->render('liste_fichiers/liste_fichiers.html.twig', [
+    'fichiers'=>$fichiers
+  ]);
+}
+
+
+
+/**
+     * @Route("/telechargement_fichier/{id}", name="telechargement_fichier", requirements={"id"="\d+"})
+     */
+    public function telechargementFichier(int $id)
+    {
+      $em = $this->getDoctrine();
+      $repoFichier = $em->getRepository(Fichier::class);  
+      $fichier = $repoFichier->find($id);
+      if ($fichier == null){
+        $this->redirectToRoute('liste_fichiers');
+      }
+      else{
+        return $this->file($this->getParameter('file_directory').'/'.$fichier->getNom());  
+      
+      }
+    }
+
 }
