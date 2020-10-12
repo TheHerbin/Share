@@ -49,6 +49,11 @@ class Utilisateur
      */
     private $telechargements;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $pdp;
+
     public function __construct()
     {
         $this->fichiers = new ArrayCollection();
@@ -166,6 +171,18 @@ class Utilisateur
                 $telechargement->setUtilisateur(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPdp()
+    {
+        return $this->pdp;
+    }
+
+    public function setPdp($pdp)
+    {
+        $this->pdp = $pdp;
 
         return $this;
     }

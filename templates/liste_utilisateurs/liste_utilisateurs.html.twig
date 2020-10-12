@@ -26,6 +26,8 @@
 								</td>
 								<td>DATE D'INSCRIPTION
 								</td>
+								<td>
+								</td>
 							</tr>
 						</thead>
 						<tbody>
@@ -36,6 +38,9 @@
 									<td>{{utilisateur.prenom}}</td>
 									<td>{{utilisateur.datenaissance | date("d-m-Y")}}</td>
 									<td>{{utilisateur.dateinscription | date("d-m-Y")}}</td>
+									<td><a href="{{path('profil_utilisateur',{'id':utilisateur.id})}}">
+									 <span title="Voir le profil" class="material-icons">assignment_ind</span>
+									 </td>
 								</tr>
 							{% endfor %}
 						</tbody>

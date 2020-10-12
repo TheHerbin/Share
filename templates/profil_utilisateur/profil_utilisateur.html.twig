@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{parent()}}
+	- Profil utilisateur
+{% endblock %}
+
+{% block body %}
+	{{parent()}}
+	<div class="container">
+    <br>
+    <br>
+		<h1>
+			Bienvenue sur le profil de
+			{{utilisateur.nom}}
+			{{utilisateur.prenom}}</h1>
+		<div class="row justify-content-center"></div>
+        {% set chemin = 'upload/profilepictures/'~utilisateur.pdp %}
+        <h2>Photo de profil : <img src="{{asset(chemin)}}" alt="pdp" class="img-thumbnail"></h2>
+        <br>
+        <h2>Modifier la photo :</h2>
+        	{{ form_start(form) }}
+					<div class="form-group">
+					{{ form_label(form.pdpfile, 'Fichier ', {'label_attr': {'class': 'font-weight-bold'}}) }}
+					{{ form_widget(form.pdpfile, {'attr': {'class': 'form-control'}}) }}
+				</div>
+				<div class="form-group mx-auto text-center">
+					{{ form_widget(form.envoyer, { 'label': "Envoyer", 'attr': {'class': 'btn font-weight-bold bg-primary text-white mx-auto text-center'}}) }}
+				</div>
+	{{form_end(form) }}
+	</div>
+
+
+{% endblock %}
