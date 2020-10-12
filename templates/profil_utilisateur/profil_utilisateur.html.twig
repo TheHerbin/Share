@@ -15,8 +15,8 @@
 			{{utilisateur.nom}}
 			{{utilisateur.prenom}}</h1>
 		<div class="row justify-content-center"></div>
-        {% set chemin = 'upload/profilepictures/'~utilisateur.pdp %}
-        <h2>Photo de profil : <img src="{{asset(chemin)}}" alt="pdp" class="img-thumbnail"></h2>
+		
+        <h2>Photo de profil : <img src="{{base64}}" class="img-fluid w-25" alt="Responsive image"></h2>
         <br>
         <h2>Modifier la photo :</h2>
         	{{ form_start(form) }}

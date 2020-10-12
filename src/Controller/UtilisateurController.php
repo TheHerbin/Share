@@ -14,6 +14,7 @@ use App\Repository\UtilisateurRepository;
 use App\Form\AjoutUtilisateurType;
 use App\Form\ModifPdpType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
+use Symfony\Component\HttpFoundation\File\File;
 
 
 class UtilisateurController extends AbstractController
@@ -71,12 +72,21 @@ class UtilisateurController extends AbstractController
       $repoUtilisateur = $em-> getRepository(Utilisateur::class);
       $utilisateur = $repoUtilisateur->find($id);
       $form = $this->createForm(ModifPdpType::class,$utilisateur);
+      if($utilisateur->getPdp()== NULL){
+        $path = $this->getParameter('picture_directory').'/defaut.jpeg';
+      }else{
+        $path = $this->getParameter('picture_directory').'/'.$utilisateur->getPdp();
+      }
+
+      $f = new File($path);
+      $data = file_get_contents($path);
+      $base64 = 'data:image/'.$f->guessExtension().';base64,'.base64_encode($data);
 
       if ($request->isMethod('POST')) {            
           $form->handleRequest($request);
           if ($form->isSubmitted() && $form->isValid()) {
               $file = $form->get('pdpfile')->getData();
-             
+
               $em = $this->getDoctrine()->getManager();
              
               $fileName = $utilisateur->getId().'.'.$file->guessExtension(); 
@@ -96,7 +106,9 @@ class UtilisateurController extends AbstractController
 
       return $this->render('profil_utilisateur/profil_utilisateur.html.twig', [
         'utilisateur'=>$utilisateur,
-         'form'=>$form->createView()
+         'form'=>$form->createView(),
+         'base64'=>$base64
+
       ]);
 }
 
