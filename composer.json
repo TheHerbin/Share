@@ -24,7 +24,7 @@
         "symfony/notifier": "*",
         "symfony/orm-pack": "*",
         "symfony/process": "*",
-        "symfony/security-bundle": "^5.1",
+        "symfony/security-bundle": "5.1.*",
         "symfony/serializer-pack": "*",
         "symfony/string": "*",
         "symfony/swiftmailer-bundle": "^3.4",
